@@ -12,15 +12,40 @@ let controller = new UsersController(service)
 
 //routing
 
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource')
+router.get('/', async (req, res, next) => {
+    let result = await controller.findUser()
+    res.json(result)
+})
+
+router.get('/:id', async (req, res, next) => {
+    let params = req.params.id
+    let result = await controller.findOneUser(params)
+    res.json(result)
 })
 
 //need dto to check input json user from request
 router.post('/', validateInsertUser, async (req, res, next) => {
     let params = req.body
-    let result = await controller.createUser({data: params, req, res})
+    let result = await controller.createUser(params)
     res.json(result)
+})
+
+router.delete('/:id', async (req, res, next) => {
+    let params = req.params.id
+    let result = await controller.deleteUser(params)
+    res.json(result)
+})
+
+router.put('/:id', async (req, res, next) => {
+    let params = req.params.id
+    let paramsBody = req.body
+    if (params && Object.keys(paramsBody).length != 0) {
+        console.log(paramsBody)
+        let result = await controller.updateUser(params, paramsBody)
+        res.json(result)
+    } else {
+        res.status(500).json({error: true})
+    }
 })
 
 module.exports = router
