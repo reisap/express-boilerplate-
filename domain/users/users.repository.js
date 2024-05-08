@@ -1,7 +1,8 @@
 import {AbstractRepositroy} from '../../lib/database/abstract.repository'
+const User = require('./users.entity')
 
-export class UsersRepository extends AbstractRepositroy {
+export class UsersRepository {
     constructor() {
-        super()
+        this.model = User
     }
 }

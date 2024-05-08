@@ -1,8 +1,9 @@
-const {DataTypes} = require('sequelize')
-import {sequelize} from '../../config/database'
+const {DataTypes, Model} = require('sequelize')
+import sequelize from '../../config/database'
 
-const User = sequelize.define(
-    'User',
+class User extends Model {}
+
+User.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -11,18 +12,35 @@ const User = sequelize.define(
         },
         username: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
+            unique: true,
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
+        },
+        inactive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+        },
+        activationToken: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        passwordResetToken: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
     },
     {
-        // Other model options go here
+        sequelize,
+        modelName: 'user',
     }
 )
+
+module.exports = User
