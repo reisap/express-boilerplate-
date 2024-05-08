@@ -8,6 +8,7 @@ import path from 'path'
 var app = express()
 let routerV1 = require('./routes/v1/index')
 let routerV2 = require('./routes/v2/index')
+import {database} from './config/database'
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -16,7 +17,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 //connect database
-require('./config/database')()
+var DB = database()
 //v1
 app.group('/api/v1', (router) => {
     routerV1(router)
