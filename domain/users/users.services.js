@@ -17,9 +17,9 @@ export class UsersService {
             }
         }
     }
-    async findUser() {
+    async findUser(limit, page) {
         try {
-            let result = await this.repository.findAll()
+            let result = await this.repository.findAll(limit, page)
 
             return {
                 result: result,

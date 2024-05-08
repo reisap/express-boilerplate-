@@ -17,8 +17,8 @@ export class UsersController {
         let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
         return response
     }
-    async findUser() {
-        let result = await this.service.findUser()
+    async findUser(limit, page) {
+        let result = await this.service.findUser(limit, page)
         if (result.error) {
             //ada error
             return {

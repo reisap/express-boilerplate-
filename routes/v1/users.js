@@ -13,7 +13,9 @@ let controller = new UsersController(service)
 //routing
 
 router.get('/', async (req, res, next) => {
-    let result = await controller.findUser()
+    let page = parseInt(req.query.page) || 1
+    let limit = parseInt(req.query.limit) || 10
+    let result = await controller.findUser(limit, page)
     res.json(result)
 })
 
