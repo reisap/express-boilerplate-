@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import path from 'path'
 import sequelize from './config/database'
-// const sequelize = require('./config/database')
 
 var app = express()
 let routerV1 = require('./routes/v1/index')

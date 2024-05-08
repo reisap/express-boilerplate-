@@ -5,7 +5,6 @@ module.exports = (router) => {
     //router.use(middleware)
     //or you can spesify into routes
     //router.use('/find',jwtMiddleware,user)
-    // let ambilDariTest = TestClass.getModel(testClass)
 
     router.use('/users', users)
 }

@@ -1,6 +1,8 @@
 const {DataTypes, Model} = require('sequelize')
 import sequelize from '../../config/database'
 
+const Post = require('../posts/posts.entity')
+
 class User extends Model {}
 
 User.init(
@@ -42,5 +44,8 @@ User.init(
         modelName: 'user',
     }
 )
+
+User.hasMany(Post, {onDelete: 'cascade', foreignKey: 'userId'})
+Post.belongsTo(User)
 
 module.exports = User
