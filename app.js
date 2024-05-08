@@ -14,6 +14,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+//connect database
+require('./config/database')()
 //v1
 app.group('/api/v1', (router) => {
     routerV1(router)

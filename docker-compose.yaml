@@ -11,3 +11,18 @@ services:
             - '3000:3000'
         volumes:
             - '.:/src/app'
+        depends_on:
+            - db
+    db:
+        image: mysql:5.7.22
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        volumes:
+            - v_socialdb:/var/lib/mysql
+        ports:
+            - ${DB_PORT}:${DB_PORT}
+
+volumes:
+    v_socialdb:
