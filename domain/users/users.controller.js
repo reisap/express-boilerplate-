@@ -1,8 +1,25 @@
 import ResponseDto from '../../lib/dto/response.dto'
+import {generateToken} from '../../lib/middleware/auth'
 
 export class UsersController {
     constructor(services) {
         this.service = services
+    }
+
+    async loginUser({email, password}) {
+        let result = await this.service.loginUser({email, password})
+        if (result.error) {
+            //ada error
+            return {
+                error: result.result,
+            }
+        }
+
+        //disini perlu dibuat generate token jwt
+        let token = await generateToken(result.result.id)
+        let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
+        response['token'] = token
+        return response
     }
 
     async createUser(data) {

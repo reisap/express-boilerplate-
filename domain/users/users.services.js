@@ -5,6 +5,32 @@ export class UsersService {
         this.repository = repository
     }
 
+    async loginUser({email, password}) {
+        //find email
+        //compare password
+        //generate token
+
+        let user = await this.repository.findOneParams({email: email})
+        if (!user || user == null || user == undefined) {
+            return {
+                result: 'Email not found',
+                error: true,
+            }
+        }
+        const match = await bcrypt.compare(password, user.password)
+        if (!match) {
+            return {
+                result: 'password not match !!',
+                error: true,
+            }
+        }
+
+        return {
+            result: user,
+            error: false,
+        }
+    }
+
     async createUser(data) {
         try {
             let result = await this.repository.create({
