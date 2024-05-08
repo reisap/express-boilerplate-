@@ -1,3 +1,5 @@
+import * as bcrypt from 'bcryptjs'
+
 export class UsersService {
     constructor(repository) {
         this.repository = repository
@@ -5,12 +7,16 @@ export class UsersService {
 
     async createUser(data) {
         try {
-            let result = await this.repository.create(data)
+            let result = await this.repository.create({
+                ...data,
+                password: await bcrypt.hash(data.password, 12),
+            })
             return {
                 result: result,
                 error: false,
             }
         } catch (e) {
+            console.log(e)
             return {
                 result: e.errors,
                 error: true,

@@ -12,6 +12,10 @@ let controller = new UsersController(service)
 
 //routing
 
+router.get('/login', async (req, res, next) => {
+    res.send('login')
+})
+
 router.get('/', async (req, res, next) => {
     let page = parseInt(req.query.page) || 1
     let limit = parseInt(req.query.limit) || 10
