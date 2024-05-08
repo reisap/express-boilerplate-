@@ -1,0 +1,13 @@
+services:
+    app:
+        container_name: 'express-tdd'
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: pnpm run start
+        env_file:
+            - '.env'
+        ports:
+            - '3000:3000'
+        volumes:
+            - '.:/src/app'

@@ -1,0 +1,28 @@
+{
+    "name": "nodejs-tdd",
+    "version": "1.0.0",
+    "author": "Reisa Prasaptaraya",
+    "keywords": [
+        "nodejs",
+        "express",
+        "TDD"
+    ],
+    "private": true,
+    "main": "app.js",
+    "scripts": {
+        "start": "nodemon --exec babel-node app.js",
+        "build": "babel app.js — out-file app-compiled.js"
+    },
+    "dependencies": {
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "express": "~4.16.1",
+        "morgan": "~1.9.1",
+        "nodemon": "^3.1.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.24.5",
+        "@babel/node": "^7.23.9",
+        "@babel/preset-env": "^7.24.5"
+    }
+}
