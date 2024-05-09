@@ -1,0 +1,11 @@
+{
+    "jwtSecret": "sehaRUSNYAJanganDItaruhDISINIy4H",
+    "mail": {
+        "host": "smtp.mailersend.net",
+        "port": 587,
+        "auth": {
+            "user": "",
+            "pass": ""
+        }
+    }
+}

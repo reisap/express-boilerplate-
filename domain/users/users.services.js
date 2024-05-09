@@ -1,4 +1,7 @@
 import * as bcrypt from 'bcryptjs'
+import sequelize from '../../config/database'
+import {sendAccountActivation} from '../notification/email.service'
+import {randomString} from '../../lib/utils/generator'
 
 export class UsersService {
     constructor(repository) {
@@ -32,17 +35,24 @@ export class UsersService {
     }
 
     async createUser(data) {
+        const transaction = await sequelize.transaction()
         try {
             let result = await this.repository.create({
                 ...data,
                 password: await bcrypt.hash(data.password, 12),
+                activationToken: randomString(16),
             })
+            //send email into new user
+            await sendAccountActivation(data.email, result.activationToken)
+            await transaction.commit()
+
             return {
                 result: result,
                 error: false,
             }
         } catch (e) {
             console.log(e)
+            await transaction.rollback()
             return {
                 result: e.errors,
                 error: true,

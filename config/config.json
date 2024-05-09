@@ -1,3 +1,12 @@
 {
-    "jwtSecret": "sehaRUSNYAJanganDItaruhDISINIy4H"
+    "jwtSecret": "sehaRUSNYAJanganDItaruhDISINIy4H",
+    "mail": {
+        "host": "smtp.mailersend.net",
+        "port": 587,
+        "auth": {
+            "user": "MS_gNpaGK@trial-pxkjn41p2q04z781.mlsender.net",
+            "pass": "7UQyzBqELKBkvepr"
+        }
+    },
+    "token": "mlsn.86b12a7e1f3b1ac7c862a6a4f589c211a5e197afa131821343708cba891889e3"
 }

@@ -5,11 +5,13 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import path from 'path'
 import sequelize from './config/database'
+import cors from 'cors'
 
 var app = express()
 let routerV1 = require('./routes/v1/index')
 let routerV2 = require('./routes/v2/index')
 
+app.use(cors())
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
