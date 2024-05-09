@@ -56,8 +56,8 @@ export class PostController {
         let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
         return response
     }
-    async deletePost(id) {
-        let result = await this.service.deletePost(id)
+    async deletePost(id, userId) {
+        let result = await this.service.deletePost(id, userId)
         if (result.error) {
             //ada error
             return {

@@ -27,23 +27,23 @@ router.get('/:id', async (req, res, next) => {
 
 //need dto to check input json user from request
 router.post('/', validateInsertPost, async (req, res, next) => {
-    //ada 2 cara untuk dapatkan userID
-    //1. melalui langsung cara nya seperti ini
-    //2. melalui payload dari JWT token
     let params = req.body
+    params.userId = req.userId //kita dapatkan userId dari jwt token
     let result = await controller.createPost(params)
     res.json(result)
 })
 
 router.delete('/:id', async (req, res, next) => {
-    let params = req.params.id
-    let result = await controller.deletePost(params)
+    let id = req.params.id
+    let userId = req.userId
+    let result = await controller.deletePost(id, userId)
     res.json(result)
 })
 
 router.put('/:id', async (req, res, next) => {
     let params = req.params.id
     let paramsBody = req.body
+    paramsBody.userId = req.userId
     if (params && Object.keys(paramsBody).length != 0) {
         console.log(paramsBody)
         let result = await controller.updatePost(params, paramsBody)

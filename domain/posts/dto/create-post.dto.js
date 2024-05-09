@@ -5,7 +5,6 @@ export const validateInsertPost = (req, res, next) => {
         let params = req.body
         const Post = z.object({
             content: z.string().min(5, {message: 'Must be 5 or more characters long'}),
-            userId: z.number(),
         })
 
         Post.parse(params)

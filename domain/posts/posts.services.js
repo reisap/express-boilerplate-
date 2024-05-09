@@ -71,7 +71,18 @@ export class PostService {
     }
     async updatePost(id, paramsBody = {}) {
         try {
-            let result = await this.repository.update(params, paramsBody)
+            //check userId apakah dia yang buat post atau tidak
+            let check_post = await this.repository.findOne(id)
+
+            if (check_post.userId != paramsBody.userId) {
+                //error dia tidak berhak edit karena bukan punya dia post ini
+                return {
+                    result: 'Not Allowed Edit Post',
+                    error: true,
+                }
+            }
+
+            let result = await this.repository.update(id, paramsBody)
             return {
                 result: result,
                 error: false,
@@ -83,8 +94,18 @@ export class PostService {
             }
         }
     }
-    async deletePost(id) {
+    async deletePost(id, userId) {
         try {
+            //check userId apakah dia yang buat post atau tidak
+            let check_post = await this.repository.findOne(id)
+
+            if (check_post.userId != userId) {
+                //error dia tidak berhak edit karena bukan punya dia post ini
+                return {
+                    result: 'Not Allowed Edit Post',
+                    error: true,
+                }
+            }
             let result = await this.repository.delete(id)
             if (result == 1) {
                 return {
