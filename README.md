@@ -4,6 +4,8 @@
 >
 > Routing version (so you can deploy any version of your api)
 >
+> Email Sender for verify user and forgot password user
+>
 > MySQL Database
 >
 > JWT Token for auth (header or cookie mmm)
