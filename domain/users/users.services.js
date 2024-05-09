@@ -1,14 +1,39 @@
 import * as bcrypt from 'bcryptjs'
 import sequelize from '../../config/database'
-import {sendAccountActivation} from '../notification/email/email.service'
+
 import {randomString} from '../../lib/utils/generator'
 
 export class UsersService {
     constructor(repository) {
         this.repository = repository
     }
+    async verifyResetPasswordUserByEmail(tokenGenerate) {
+        try {
+            //seacrh user by token generate
+            let user = await this.repository.findOneParams({activationToken: tokenGenerate})
+            if (!user || user == null || user == undefined) {
+                return {
+                    result: 'token activation expired !',
+                    error: true,
+                }
+            }
+            // //update status user active
+            // let result = await this.repository.update(user.id, {
+            //     activationToken: null,
+            // })
 
-    async verifyUserByEmail(tokenGenerate) {
+            return {
+                result: user,
+                error: false,
+            }
+        } catch (e) {
+            return {
+                result: e.errors,
+                error: true,
+            }
+        }
+    }
+    async verifyUserByEmailToken(tokenGenerate) {
         try {
             //seacrh user by token generate
             let user = await this.repository.findOneParams({activationToken: tokenGenerate})
@@ -70,8 +95,7 @@ export class UsersService {
                 password: await bcrypt.hash(data.password, 12),
                 activationToken: randomString(16),
             })
-            //send email into new user
-            await sendAccountActivation(data.email, result.activationToken)
+
             await transaction.commit()
 
             return {
@@ -85,6 +109,19 @@ export class UsersService {
                 result: e.errors,
                 error: true,
             }
+        }
+    }
+    async findOneUserByParams(user = {}) {
+        let user = await this.repository.findOneParams(user)
+        if (!user || user == null || user == undefined) {
+            return {
+                result: 'user not found',
+                error: true,
+            }
+        }
+        return {
+            result: user,
+            error: false,
         }
     }
     async findUser(limit, page) {

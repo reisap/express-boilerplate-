@@ -16,7 +16,8 @@ const sendAccountActivation = async (email, token, urlActivation = 'http://local
     logger.info('url: ' + nodemailer.getTestMessageUrl(info))
 }
 
-const sendPasswordReset = async (email, token, urlActivation = 'http://localhost:3000') => {
+const sendPasswordReset = async ({email, token, urlActivation = 'http://localhost:3000', target_redirect = 'http://localhost:3000'}) => {
+    urlActivation = urlActivation + '/api/v1/users/password-reset?token=' + token
     const info = await transporter.sendMail({
         from: 'My App <MS_gNpaGK@trial-pxkjn41p2q04z781.mlsender.net>',
         to: email,
@@ -26,7 +27,7 @@ const sendPasswordReset = async (email, token, urlActivation = 'http://localhost
             <b>Please click below link to reset your password</b>
             </div>
             <div>
-            <a href="${urlActivation}/password-reset?reset=${token}">Reset</a>
+            <a href="${urlActivation}">Reset Password</a>
         </div>
     `,
     })
