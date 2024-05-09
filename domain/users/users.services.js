@@ -111,8 +111,8 @@ export class UsersService {
             }
         }
     }
-    async findOneUserByParams(user = {}) {
-        let user = await this.repository.findOneParams(user)
+    async findOneUserByParams(params = {}) {
+        let user = await this.repository.findOneParams(params)
         if (!user || user == null || user == undefined) {
             return {
                 result: 'user not found',
