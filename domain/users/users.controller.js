@@ -73,9 +73,13 @@ export class UsersController {
                 error: result.result,
             }
         }
+        //generate password reset token
+        let generateToken = await this.service.updateUser(result.result.id, {
+            passwordResetToken: randomString(16),
+        })
         await sendPasswordReset({
             email: result.result.email,
-            token: result.result.activationToken,
+            token: generateToken.result.passwordResetToken,
             target_redirect: targetRedirect,
         })
         let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
@@ -93,6 +97,7 @@ export class UsersController {
             password: password,
             inactive: false, //sekedar berjaga jaga jika ada user baru yang langsung lupa password jadi langsung kita buat aktif usernya
             activationToken: null, //memastikan bahwa aktivation selalu null ketika user berhasil
+            passwordResetToken: null, //memastikan bahwa aktivation selalu null ketika user berhasil
         })
         if (user.error) {
             //ada error
