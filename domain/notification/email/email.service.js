@@ -5,7 +5,7 @@ const config = require('../../../config/config.json')
 import {emailTemplateVerification} from './email.template.verification'
 
 const sendAccountActivation = async (email, token, urlActivation = 'http://localhost:3000') => {
-    urlActivation = urlActivation + '/login?token=' + token
+    urlActivation = urlActivation + '/api/v1/users/verify?token=' + token
     let html = emailTemplateVerification(urlActivation)
     const info = await transporter.sendMail({
         from: `"Social Media Kekinian <${config.mail.auth.user}>"`,
@@ -22,12 +22,12 @@ const sendPasswordReset = async (email, token, urlActivation = 'http://localhost
         to: email,
         subject: 'Password Reset',
         html: `
-    <div>
-      <b>Please click below link to reset your password</b>
-    </div>
-    <div>
-      <a href="${urlActivation}/password-reset?reset=${token}">Reset</a>
-    </div>
+        <div>
+            <b>Please click below link to reset your password</b>
+            </div>
+            <div>
+            <a href="${urlActivation}/password-reset?reset=${token}">Reset</a>
+        </div>
     `,
     })
     logger.info('url: ' + nodemailer.getTestMessageUrl(info))

@@ -8,6 +8,34 @@ export class UsersService {
         this.repository = repository
     }
 
+    async verifyUserByEmail(tokenGenerate) {
+        try {
+            //seacrh user by token generate
+            let user = await this.repository.findOneParams({activationToken: tokenGenerate})
+            if (!user || user == null || user == undefined) {
+                return {
+                    result: 'token activation expired !',
+                    error: true,
+                }
+            }
+            //update status user active
+            let result = await this.repository.update(user.id, {
+                inactive: false,
+                activationToken: null,
+            })
+
+            return {
+                result: result,
+                error: false,
+            }
+        } catch (e) {
+            return {
+                result: e.errors,
+                error: true,
+            }
+        }
+    }
+
     async loginUser({email, password}) {
         //find email
         //compare password

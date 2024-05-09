@@ -6,6 +6,18 @@ export class UsersController {
         this.service = services
     }
 
+    async verifyUserByEmail(tokenGenerate) {
+        let result = await this.service.verifyUserByEmail(tokenGenerate)
+        if (result.error) {
+            //ada error
+            return {
+                error: result.result,
+            }
+        }
+        let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
+        return response
+    }
+
     async loginUser({email, password}) {
         let result = await this.service.loginUser({email, password})
         if (result.error) {

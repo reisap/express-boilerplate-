@@ -14,6 +14,19 @@ let controller = new UsersController(service)
 
 //routing
 
+router.get('/verify', async (req, res, next) => {
+    let token = req.query.token
+    if (token) {
+        let result = await controller.verifyUserByEmail(token)
+        //seharusnya redirect ke halaman frontend, ini hanya untuk sementara supaya terlihat bahwa ini berhasil
+        res.json(result)
+    } else {
+        res.status(404).json({
+            message: 'oops, you cannot enter this way !!!',
+        })
+    }
+})
+
 router.post('/login', async (req, res, next) => {
     let email = req.body.email
     let password = req.body.password
