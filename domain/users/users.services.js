@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs'
 import sequelize from '../../config/database'
-import {sendAccountActivation} from '../notification/email.service'
+import {sendAccountActivation} from '../notification/email/email.service'
 import {randomString} from '../../lib/utils/generator'
 
 export class UsersService {

@@ -1,27 +1,24 @@
 const nodemailer = require('nodemailer')
 const transporter = require('./email.transporter')
-const logger = require('../../lib/utils/logger')
+const logger = require('../../../lib/utils/logger')
+const config = require('../../../config/config.json')
+import {emailTemplateVerification} from './email.template.verification'
 
 const sendAccountActivation = async (email, token, urlActivation = 'http://localhost:3000') => {
+    urlActivation = urlActivation + '/login?token=' + token
+    let html = emailTemplateVerification(urlActivation)
     const info = await transporter.sendMail({
-        from: 'Social Media Kekinian <MS_gNpaGK@trial-pxkjn41p2q04z781.mlsender.net>',
+        from: `"Social Media Kekinian <${config.mail.auth.user}>"`,
         to: email,
         subject: 'Account Activation',
-        html: `
-    <div>
-      <b>Please click below link to activate your account</b>
-    </div>
-    <div>
-      <a href="${urlActivation}/login?token=${token}">Activate</a>
-    </div>
-    `,
+        html: html,
     })
     logger.info('url: ' + nodemailer.getTestMessageUrl(info))
 }
 
-const sendPasswordReset = async (email, token) => {
+const sendPasswordReset = async (email, token, urlActivation = 'http://localhost:3000') => {
     const info = await transporter.sendMail({
-        from: 'My App <info@my-app.com>',
+        from: 'My App <MS_gNpaGK@trial-pxkjn41p2q04z781.mlsender.net>',
         to: email,
         subject: 'Password Reset',
         html: `
@@ -29,7 +26,7 @@ const sendPasswordReset = async (email, token) => {
       <b>Please click below link to reset your password</b>
     </div>
     <div>
-      <a href="http://localhost:3000/#/password-reset?reset=${token}">Reset</a>
+      <a href="${urlActivation}/password-reset?reset=${token}">Reset</a>
     </div>
     `,
     })
