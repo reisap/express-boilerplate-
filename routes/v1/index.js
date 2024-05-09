@@ -1,5 +1,5 @@
 import users from './users'
-import {post} from './post'
+import post from './post'
 import {verifyToken} from '../../lib/middleware/auth'
 
 module.exports = (router) => {
