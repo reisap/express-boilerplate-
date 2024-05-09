@@ -16,6 +16,10 @@
 
 ---
 
+## Sample email verification
+
+![Sample email verification](./email-verification.PNG)
+
 TODO :
 
     1. RabbitMQ (for send email with convenient and mind blowing pattern, hahaha)
