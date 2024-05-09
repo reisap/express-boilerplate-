@@ -20,4 +20,7 @@ Post.init(
     }
 )
 
+//disini perlu dibuat relasi dengan table notif one to one post -> notif
+//optional to one notif -> post
+
 module.exports = Post
