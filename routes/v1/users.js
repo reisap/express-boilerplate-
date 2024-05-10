@@ -36,6 +36,7 @@ router.post('/forgot-password', async (req, res, next) => {
 //seharusnya disini berupa tampilan ui sehingga ketika user click bisa langsung isi new password dari token yang sudah dikasih via email
 router.get('/password-reset', async (req, res, next) => {
     //req.query.token
+    let token = req.query.token
     //confirm from email user
     if (token) {
         let result = await controller.verifyResetPasswordUserByEmail(token)
@@ -50,7 +51,7 @@ router.get('/password-reset', async (req, res, next) => {
 })
 //3. user create new password from forgot password
 router.post('/password-reset', async (req, res, next) => {
-    //req.body.email ---> ini didapat dari hasil no 2, jadi frontend kembalikan return response dari proses yang kedua kesini,jadi pasti akan dapat email nya.
+    //req.body.email ---> ini didapat dari hasil no 2, jadi frontend kembalikan return response dari proses yang kedua kesini,jadi pasti akan dapat email nya, tetapi seharusnya di UI tidak ada field ini yah
     //req.body.password --> ini didapat dari ui di front end,, seharusnya nanti disana hanya berisi 1 field berupa password,,karena user lupa password yang dia punya.
     let email = req.body.email
     let password = req.body.password
