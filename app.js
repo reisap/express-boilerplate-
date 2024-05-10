@@ -6,7 +6,7 @@ import logger from 'morgan'
 import path from 'path'
 import sequelize from './config/database'
 import cors from 'cors'
-
+import errorHandler from './lib/dto/error.handler.dto'
 var app = express()
 let routerV1 = require('./routes/v1/index')
 let routerV2 = require('./routes/v2/index')
@@ -30,6 +30,8 @@ app.group('/api/v1', (router) => {
 app.group('/api/v2', (router) => {
     routerV2(router)
 })
+
+app.use(errorHandler)
 
 app.listen(process.env.PORT || '3000')
 module.exports = {

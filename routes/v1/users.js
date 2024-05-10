@@ -24,9 +24,9 @@ router.post('/forgot-password', async (req, res, next) => {
     let targetRedirect = req.body.url_target || req.headers.host || 'http://localhost:3000'
     if (email) {
         let result = await controller.forgotPasswordUser(targetRedirect, {email: email})
-        res.json(result)
+        res.send(result)
     } else {
-        res.status(404).json({
+        res.status(404).send({
             message: 'oops, you cannot enter this way !!!',
         })
     }
@@ -41,9 +41,9 @@ router.get('/password-reset', async (req, res, next) => {
         let result = await controller.verifyResetPasswordUserByEmail(token)
         //seharusnya redirect ke halaman frontend, ini hanya untuk sementara supaya terlihat bahwa ini berhasil
         //req.headers.host untuk proses redirect res.redirect(req.headers.host) or web traget for frontend
-        res.json(result)
+        res.send(result)
     } else {
-        res.status(404).json({
+        res.status(404).send({
             message: 'oops, you cannot enter this way !!!',
         })
     }
@@ -57,9 +57,9 @@ router.post('/password-reset', async (req, res, next) => {
     //confirm from email user
     if (email && password) {
         let result = await controller.updateUserForgotPassword({email, password})
-        res.json(result)
+        res.send(result)
     } else {
-        res.status(404).json({
+        res.status(404).send({
             message: 'oops, you cannot enter this way !!!',
         })
     }
@@ -79,9 +79,9 @@ router.post('/change-password', async (req, res, next) => {
 
     if (email && password && new_password) {
         let result = await controller.setNewPasswordUser({email: email, password: password, new_password: new_password})
-        res.json(result)
+        res.send(result)
     } else {
-        res.status(404).json({
+        res.status(404).send({
             message: 'oops, you cannot enter this way !!!',
         })
     }
@@ -93,9 +93,9 @@ router.get('/verify', async (req, res, next) => {
         let result = await controller.verifyUserByEmailToken(token)
         //seharusnya redirect ke halaman frontend, ini hanya untuk sementara supaya terlihat bahwa ini berhasil
         //req.headers.host untuk proses redirect res.redirect(req.headers.host) or web traget for frontend
-        res.json(result)
+        res.send(result)
     } else {
-        res.status(404).json({
+        res.status(404).send({
             message: 'oops, you cannot enter this way !!!',
         })
     }
@@ -109,9 +109,9 @@ router.post('/login', async (req, res, next) => {
         res.cookie('Authentication', result.token, {
             httpOnly: true,
         })
-        res.json(result)
+        res.send(result)
     } else {
-        res.json({
+        res.send({
             error: true,
             messaage: 'Please enter username and password',
         })
@@ -122,20 +122,20 @@ router.get('/', verifyToken, async (req, res, next) => {
     let page = parseInt(req.query.page) || 1
     let limit = parseInt(req.query.limit) || 10
     let result = await controller.findUser(limit, page)
-    res.json(result)
+    res.send(result)
 })
 
 router.get('/:id', verifyToken, async (req, res, next) => {
     let params = req.params.id
     let result = await controller.findOneUser(params)
-    res.json(result)
+    res.send(result)
 })
 
 //need dto to check input json user from request
 router.post('/', validateInsertUser, async (req, res, next) => {
     let params = req.body
     let result = await controller.createUser(params)
-    res.json(result)
+    res.send(result)
 })
 
 router.delete('/:id', verifyToken, async (req, res, next) => {
@@ -143,32 +143,34 @@ router.delete('/:id', verifyToken, async (req, res, next) => {
     const authenticatedUser = req.userId
     if (!authenticatedUser || authenticatedUser.id != req.params.id) {
         // return next(new ForbiddenException('unauthroized_user_delete'))
-        res.status(403).json({
+        res.status(403).send({
             error: true,
             messaage: 'unauthroized_user_delete',
         })
+    } else {
+        let result = await controller.deleteUser(params)
+        res.send(result)
     }
-    let result = await controller.deleteUser(params)
-    res.json(result)
 })
 
 router.put('/:id', verifyToken, async (req, res, next) => {
     const authenticatedUser = req.userId
     if (!authenticatedUser || authenticatedUser.id != req.params.id) {
         //return next(new ForbiddenException('unauthroized_user_update'))
-        res.status(403).json({
+        res.status(403).send({
             error: true,
             messaage: 'unauthroized_user_update',
         })
-    }
-    let params = req.params.id
-    let paramsBody = req.body
-    if (params && Object.keys(paramsBody).length != 0) {
-        console.log(paramsBody)
-        let result = await controller.updateUser(params, paramsBody)
-        res.json(result)
     } else {
-        res.status(500).json({error: true})
+        let params = req.params.id
+        let paramsBody = req.body
+        if (params && Object.keys(paramsBody).length != 0) {
+            console.log(paramsBody)
+            let result = await controller.updateUser(params, paramsBody)
+            res.send(result)
+        } else {
+            res.status(500).send({error: true})
+        }
     }
 })
 

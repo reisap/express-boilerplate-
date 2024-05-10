@@ -102,7 +102,7 @@ export class PostService {
             if (check_post.userId != userId) {
                 //error dia tidak berhak edit karena bukan punya dia post ini
                 return {
-                    result: 'Not Allowed Edit Post',
+                    result: 'Not Allowed Delete Post',
                     error: true,
                 }
             }

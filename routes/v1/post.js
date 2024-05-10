@@ -16,13 +16,13 @@ router.get('/', async (req, res, next) => {
     let page = parseInt(req.query.page) || 1
     let limit = parseInt(req.query.limit) || 10
     let result = await controller.findPost(limit, page)
-    res.json(result)
+    res.send(result)
 })
 
 router.get('/:id', async (req, res, next) => {
     let params = req.params.id
     let result = await controller.findOnePost(params)
-    res.json(result)
+    res.send(result)
 })
 
 //need dto to check input json user from request
@@ -30,14 +30,14 @@ router.post('/', validateInsertPost, async (req, res, next) => {
     let params = req.body
     params.userId = req.userId //kita dapatkan userId dari jwt token
     let result = await controller.createPost(params)
-    res.json(result)
+    res.send(result)
 })
 
 router.delete('/:id', async (req, res, next) => {
     let id = req.params.id
     let userId = req.userId
     let result = await controller.deletePost(id, userId)
-    res.json(result)
+    res.send(result)
 })
 
 router.put('/:id', async (req, res, next) => {
@@ -47,9 +47,9 @@ router.put('/:id', async (req, res, next) => {
     if (params && Object.keys(paramsBody).length != 0) {
         console.log(paramsBody)
         let result = await controller.updatePost(params, paramsBody)
-        res.json(result)
+        res.send(result)
     } else {
-        res.status(500).json({error: true})
+        res.status(500).send({error: true})
     }
 })
 
