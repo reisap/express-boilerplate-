@@ -6,6 +6,7 @@ const {UsersController} = require('../../domain/users/users.controller')
 const {UsersService} = require('../../domain/users/users.services')
 
 import {verifyToken} from '../../lib/middleware/auth'
+import ForbiddenException from '../../lib/dto/forbidden.execption.dto'
 
 //DI
 let repository = new UsersRepository()
@@ -139,11 +140,27 @@ router.post('/', validateInsertUser, async (req, res, next) => {
 
 router.delete('/:id', verifyToken, async (req, res, next) => {
     let params = req.params.id
+    const authenticatedUser = req.userId
+    if (!authenticatedUser || authenticatedUser.id != req.params.id) {
+        // return next(new ForbiddenException('unauthroized_user_delete'))
+        res.status(403).json({
+            error: true,
+            messaage: 'unauthroized_user_delete',
+        })
+    }
     let result = await controller.deleteUser(params)
     res.json(result)
 })
 
 router.put('/:id', verifyToken, async (req, res, next) => {
+    const authenticatedUser = req.userId
+    if (!authenticatedUser || authenticatedUser.id != req.params.id) {
+        //return next(new ForbiddenException('unauthroized_user_update'))
+        res.status(403).json({
+            error: true,
+            messaage: 'unauthroized_user_update',
+        })
+    }
     let params = req.params.id
     let paramsBody = req.body
     if (params && Object.keys(paramsBody).length != 0) {

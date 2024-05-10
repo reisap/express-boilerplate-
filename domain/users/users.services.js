@@ -60,7 +60,6 @@ export class UsersService {
             }
         }
     }
-
     async loginUser({email, password}) {
         //find email
         //compare password
@@ -86,7 +85,6 @@ export class UsersService {
             error: false,
         }
     }
-
     async createUser(data) {
         const transaction = await sequelize.transaction()
         try {
