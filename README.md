@@ -8,6 +8,8 @@
 >
 > Email Sender for verify user and forgot password user
 >
+> Realtime data used SocketIO for frontend
+>
 > MySQL Database
 >
 > JWT Token for auth (header or cookie mmm)
