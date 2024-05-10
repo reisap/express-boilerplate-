@@ -11,15 +11,17 @@
     "main": "app.js",
     "scripts": {
         "start": "nodemon --exec babel-node app.js",
-        "build": "babel app.js — out-file app-compiled.js"
+        "build": "babel app.js — out-file app-compiled.js",
+        "audit": "snyk test"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
         "bcryptjs": "^2.4.3",
-        "cookie-parser": "~1.4.4",
+        "cookie-parser": "~1.4.6",
+        "cookie-session": "^2.1.0",
         "cors": "^2.8.5",
         "debug": "~2.6.9",
-        "express": "~4.16.1",
+        "express": "^4.19.2",
         "helmet": "^7.1.0",
         "jsonwebtoken": "^9.0.2",
         "morgan": "~1.9.1",
@@ -28,7 +30,7 @@
         "sequelize": "^6.37.3",
         "socket.io": "^4.7.5",
         "winston": "^3.13.0",
-        "zod": "^3.23.7"
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@babel/core": "^7.24.5",

@@ -10,6 +10,7 @@ import errorHandler from './lib/dto/error.handler.dto'
 import http from 'http'
 import socketIO from 'socket.io'
 const helmet = require('helmet')
+const session = require('cookie-session')
 
 var app = express()
 const serverIO = http.createServer(app)
@@ -18,6 +19,19 @@ export const io = socketIO(serverIO, {
     allowUpgrades: false,
     upgrade: false,
 })
+
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+app.use(
+    session({
+        name: 'session',
+        keys: ['Authentication'],
+        cookie: {
+            secure: true,
+            httpOnly: true,
+            expires: expiryDate,
+        },
+    })
+)
 
 io.on('connection', (socket) => {
     console.log('connected')
