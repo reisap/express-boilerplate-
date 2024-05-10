@@ -7,7 +7,24 @@ import path from 'path'
 import sequelize from './config/database'
 import cors from 'cors'
 import errorHandler from './lib/dto/error.handler.dto'
+import http from 'http'
+import socketIO from 'socket.io'
+
 var app = express()
+const serverIO = http.createServer(app)
+export const io = socketIO(serverIO, {
+    transports: ['websocket'],
+    allowUpgrades: false,
+    upgrade: false,
+})
+
+io.on('connection', (socket) => {
+    console.log('connected')
+    socket.on('disconnect', function () {
+        console.log('disconnected')
+    })
+})
+
 let routerV1 = require('./routes/v1/index')
 let routerV2 = require('./routes/v2/index')
 
@@ -33,7 +50,7 @@ app.group('/api/v2', (router) => {
 
 app.use(errorHandler)
 
-app.listen(process.env.PORT || '3000')
+serverIO.listen(process.env.PORT || '3000')
 module.exports = {
     app,
 }

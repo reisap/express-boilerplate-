@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+import {io} from '../../app.js'
 import {validateInsertPost} from '../../domain/posts/dto/create-post.dto'
 
 import {PostController} from '../../domain/posts/posts.controller'
@@ -30,6 +31,9 @@ router.post('/', validateInsertPost, async (req, res, next) => {
     let params = req.body
     params.userId = req.userId //kita dapatkan userId dari jwt token
     let result = await controller.createPost(params)
+    if (result.error != true) {
+        io.emit('new-post', {result: result, userId: result.data.userId, postId: result.data.id}) //socket io for realtime in frontend
+    }
     res.send(result)
 })
 
@@ -45,8 +49,10 @@ router.put('/:id', async (req, res, next) => {
     let paramsBody = req.body
     paramsBody.userId = req.userId
     if (params && Object.keys(paramsBody).length != 0) {
-        console.log(paramsBody)
         let result = await controller.updatePost(params, paramsBody)
+        if (result.error != true) {
+            io.emit('edit-post', {result: result, userId: result.data.userId, postId: result.data.id}) //socket io for realtime in frontend
+        }
         res.send(result)
     } else {
         res.status(500).send({error: true})

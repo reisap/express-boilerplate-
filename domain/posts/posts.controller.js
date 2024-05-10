@@ -13,7 +13,8 @@ export class PostController {
         if (result.error) {
             //ada error
             return {
-                error: result.result,
+                result: result.result,
+                error: true,
             }
         }
         let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
@@ -25,7 +26,8 @@ export class PostController {
         if (result.error) {
             //ada error
             return {
-                error: result.result,
+                result: result.result,
+                error: true,
             }
         }
 
@@ -37,7 +39,8 @@ export class PostController {
         if (result.error) {
             //ada error
             return {
-                error: result.result,
+                result: result.result,
+                error: true,
             }
         }
 
@@ -49,7 +52,8 @@ export class PostController {
         if (result.error) {
             //ada error
             return {
-                error: result.result,
+                result: result.result,
+                error: true,
             }
         }
 
@@ -61,7 +65,8 @@ export class PostController {
         if (result.error) {
             //ada error
             return {
-                error: result.result,
+                result: result.result,
+                error: true,
             }
         }
 
