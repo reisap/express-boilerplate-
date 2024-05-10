@@ -1,4 +1,6 @@
-# Express JS
+# Express JS WITH SUPER POWER
+
+### Tools :
 
 > Node JS (Standart) :D it's only js not typescript
 >
@@ -11,8 +13,6 @@
 > JWT Token for auth (header or cookie mmm)
 >
 > Docker (for make us happy :P)
->
-> Domain Design Driven (trust me i try :D)
 
 ---
 
@@ -23,5 +23,6 @@
 TODO :
 
     1. RabbitMQ (for send email with convenient and mind blowing pattern, hahaha)
-    2. Sample Deploy with kubernetes
-    3. github action for CI/CD
+    2. Redis (for cache) --> terlalu maksa,,tapi rapopo yo :D
+    3. Sample Deploy with kubernetes
+    4. github action for CI/CD
