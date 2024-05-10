@@ -9,6 +9,7 @@ import cors from 'cors'
 import errorHandler from './lib/dto/error.handler.dto'
 import http from 'http'
 import socketIO from 'socket.io'
+const helmet = require('helmet')
 
 var app = express()
 const serverIO = http.createServer(app)
@@ -29,6 +30,7 @@ let routerV1 = require('./routes/v1/index')
 let routerV2 = require('./routes/v2/index')
 
 app.use(cors())
+app.use(helmet())
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
