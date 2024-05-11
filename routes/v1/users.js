@@ -8,6 +8,8 @@ const {UsersService} = require('../../domain/users/users.services')
 import {verifyToken} from '../../lib/middleware/auth'
 import ForbiddenException from '../../lib/dto/forbidden.execption.dto'
 
+import eventEmitter from '../../lib/middleware/event-emitter'
+
 //DI
 let repository = new UsersRepository()
 let service = new UsersService(repository)
@@ -110,6 +112,7 @@ router.post('/login', async (req, res, next) => {
         res.cookie('Authentication', result.token, {
             httpOnly: true,
         })
+        eventEmitter.emit('user login', result)
         res.send(result)
     } else {
         res.send({

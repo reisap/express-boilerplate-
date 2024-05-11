@@ -1,4 +1,4 @@
-import sequelize from '../../config/database'
+import sequelize from '../../lib/database/database'
 
 export class PostService {
     constructor(repository) {

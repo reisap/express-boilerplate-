@@ -34,4 +34,21 @@ const sendPasswordReset = async ({email, token, urlActivation = 'http://localhos
     logger.info('url: ' + nodemailer.getTestMessageUrl(info))
 }
 
-module.exports = {sendAccountActivation, sendPasswordReset}
+const sendNewPostToUser = async ({email, content}) => {
+    const info = await transporter.sendMail({
+        from: 'My App <MS_gNpaGK@trial-pxkjn41p2q04z781.mlsender.net>',
+        to: email,
+        subject: 'New Post User',
+        html: `
+        <div>
+            <b>Hei New Post from your social media, Check this out !!</b>
+            </div>
+            <div>
+            <p>"${content}"</p>
+        </div>
+    `,
+    })
+    logger.info('url: ' + nodemailer.getTestMessageUrl(info))
+}
+
+module.exports = {sendAccountActivation, sendPasswordReset, sendNewPostToUser}

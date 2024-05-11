@@ -1,5 +1,5 @@
 const {DataTypes, Model} = require('sequelize')
-import sequelize from '../../config/database'
+import sequelize from '../../lib/database/database'
 
 class Post extends Model {}
 

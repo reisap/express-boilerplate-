@@ -1,4 +1,5 @@
 import ResponseDto from '../../lib/dto/response.dto'
+import ResponseErrorDto from '../../lib/dto/response.error.dto'
 import {generateToken} from '../../lib/middleware/auth'
 import {sendAccountActivation, sendPasswordReset} from '../notification/email/email.service'
 import * as bcrypt from 'bcryptjs'
@@ -33,6 +34,7 @@ export class UsersController {
 
     async loginUser({email, password}) {
         let result = await this.service.loginUser({email, password})
+        let response
         if (result.error) {
             //ada error
             return {
@@ -40,14 +42,16 @@ export class UsersController {
             }
         } else if (result.result.inactive == true) {
             //disini artinya user belum verifikasi tapi mencoba untuk login, jadi musti kita tolak
-            return {
-                error: 'Please verify your email address before login. cheers !',
-            }
+            response = new ResponseDto({
+                message: 'Please verify your email address before login. cheers !',
+                code: 200,
+            }).response()
+            return response
         }
 
         //disini perlu dibuat generate token jwt
         let token = await generateToken(result.result.id)
-        let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
+        response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
         response['token'] = token
         return response
     }
@@ -160,14 +164,17 @@ export class UsersController {
 
     async findOneUser(id) {
         let result = await this.service.findOneUser(id)
+        let response
         if (result.error) {
             //ada error
-            return {
-                error: result.result,
-            }
+            response = new ResponseDto({
+                message: result.result,
+                code: 200,
+            }).response()
+            return response
         }
 
-        let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
+        response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
         return response
     }
     async deleteUser(id) {

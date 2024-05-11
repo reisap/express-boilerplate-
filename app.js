@@ -4,14 +4,16 @@ require('./lib/middleware/group')
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import path from 'path'
-import sequelize from './config/database'
+import sequelize from './lib/database/database'
 import cors from 'cors'
 import errorHandler from './lib/dto/error.handler.dto'
 import http from 'http'
 import socketIO from 'socket.io'
 const helmet = require('helmet')
 const session = require('cookie-session')
+const responseTime = require('response-time')
 
+require('./domain/notification/index')()
 var app = express()
 const serverIO = http.createServer(app)
 export const io = socketIO(serverIO, {
@@ -43,7 +45,12 @@ io.on('connection', (socket) => {
 let routerV1 = require('./routes/v1/index')
 let routerV2 = require('./routes/v2/index')
 
-app.use(cors())
+app.use(responseTime())
+app.use(
+    cors({
+        exposedHeaders: ['X-Response-Time'],
+    })
+)
 app.use(helmet())
 app.use(logger('dev'))
 app.use(express.json())

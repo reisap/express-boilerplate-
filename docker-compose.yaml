@@ -13,6 +13,7 @@ services:
             - '.:/src/app'
         depends_on:
             - db
+            - redis-db
     db:
         image: mysql:5.7.22
         restart: unless-stopped
@@ -23,6 +24,15 @@ services:
             - v_socialdb:/var/lib/mysql
         ports:
             - ${DB_PORT}:${DB_PORT}
-
+    redis-db:
+        image: 'redis:alpine'
+        restart: unless-stopped
+        volumes:
+            - v_redisdb:/data
+        expose:
+            - 6379
+        ports:
+            - '7379:6379'
 volumes:
     v_socialdb:
+    v_redisdb:

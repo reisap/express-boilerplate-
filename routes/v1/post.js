@@ -7,22 +7,31 @@ import {PostController} from '../../domain/posts/posts.controller'
 import {PostService} from '../../domain/posts/posts.services'
 import {PostRepository} from '../../domain/posts/posts.repository'
 
+//redis cache
+import RedisClient from '../../lib/database/redis.js'
+let {checkCachePostById, checkCachePost} = require('../../lib/middleware/check-cache')
+let client = new RedisClient()
 //DI
 let repository = new PostRepository()
 let service = new PostService(repository)
 let controller = new PostController(service)
 
 //standart CRUD function
-router.get('/', async (req, res, next) => {
+router.get('/', checkCachePost, async (req, res, next) => {
     let page = parseInt(req.query.page) || 1
     let limit = parseInt(req.query.limit) || 10
     let result = await controller.findPost(limit, page)
+    client.run().client.setEx(`post-all-page:${page}-limit:${limit}`, 120, JSON.stringify(result))
+
     res.send(result)
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', checkCachePostById, async (req, res, next) => {
     let params = req.params.id
     let result = await controller.findOnePost(params)
+    //client.run().client.set(params, JSON.stringify(result))
+    client.run().client.setEx(`post-${params}`, 3600, JSON.stringify(result))
+
     res.send(result)
 })
 
