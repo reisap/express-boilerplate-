@@ -24,7 +24,7 @@
 
 TODO :
 
-    1. RabbitMQ (for send email with convenient and mind blowing pattern, hahaha)
-    2. Redis (for cache) --> terlalu maksa,,tapi rapopo yo :D
+    1. RabbitMQ / event emitter (DONE)
+    2. Redis (for cache) --> (DONE)
     3. Sample Deploy with kubernetes
     4. github action for CI/CD
