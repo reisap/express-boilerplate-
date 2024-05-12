@@ -1,24 +1,26 @@
+import {Interface} from 'readline'
+
 export class AbstractRepository {
     public model: any
     constructor() {
         this.model
     }
-    async findAll(size, number) {
-        let paramQuerySQL: any
+    async findAll(size: number, number: number) {
+        let paramQuerySQL: any = {}
         let limit: number
         let offset: number
 
-        if (size !== '' && typeof size !== 'undefined') {
+        if (size != 0) {
+            console.log('masuk limit')
             limit = size
             paramQuerySQL.limit = limit
         }
 
-        if (number !== '' && typeof number !== 'undefined') {
+        if (number != 0) {
             offset = number * limit - limit
             paramQuerySQL.offset = offset
         }
 
-        console.log(paramQuerySQL)
         return await this.model.findAll(paramQuerySQL)
     }
     async create(data) {

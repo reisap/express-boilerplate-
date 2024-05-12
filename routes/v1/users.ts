@@ -177,4 +177,4 @@ router.put('/:id', verifyToken, async (req, res, next) => {
     }
 })
 
-module.exports = router
+export default router

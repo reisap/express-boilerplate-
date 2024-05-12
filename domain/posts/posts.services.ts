@@ -40,7 +40,7 @@ export class PostService {
             error: false,
         }
     }
-    async findPost(limit, page) {
+    async findPost(limit: number, page: number) {
         try {
             let result = await this.repository.findAll(limit, page)
 

@@ -8,5 +8,6 @@
         "resolveJsonModule": true,
         "esModuleInterop": true
     },
-    "include": ["./domain/**/*", "./lib/**/*", "./routes/**/*", "./test/**/*", "app.ts"]
+    "include": ["./domain/**/*", "./lib/**/*", "./routes/**/*", "./test/**/*", "app.ts"],
+    "exclude": ["./test/**/*"]
 }

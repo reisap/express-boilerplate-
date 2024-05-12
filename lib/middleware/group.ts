@@ -1,6 +1,6 @@
-var express = require('express')
+import express from 'express'
 
-express.application.group = express.Router.group = function (arg1, arg2) {
+express.Router.group = function (arg1, arg2) {
     var fn, path
 
     if (arg2 === undefined) {
@@ -16,3 +16,5 @@ express.application.group = express.Router.group = function (arg1, arg2) {
     this.use(path, router)
     return router
 }
+
+express.application.group = express.Router.group

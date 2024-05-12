@@ -22,8 +22,9 @@ export class PostController {
         return response
     }
 
-    async findPost(limit, page) {
+    async findPost(limit: number, page: number) {
         let result = await this.service.findPost(limit, page)
+        console.log(result)
         if (result.error) {
             //ada error
             return {

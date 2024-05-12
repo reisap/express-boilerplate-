@@ -1,36 +1,37 @@
 require('./lib/middleware/group')
-const express = require('express')
+import express from 'express'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
-import * as path from 'path'
-const sequelize = require("'./lib/database/database'")
+import path from 'path'
+import {sequelize} from './lib/database/database'
 import cors from 'cors'
 const errorHandler = require('./lib/dto/error.handler.dto')
-import * as http from 'http'
-const socketIO = require('socket.io')
+import http from 'http'
+
+import {Server} from 'socket.io'
+
 import helmet from 'helmet'
-const cookieSession = require('cookie-session')
+import cookieSession from 'cookie-session'
 import responseTime from 'response-time'
+
+//routing apps
+import routerApiv1 from './routes/v1/index'
+import routerV2 from './routes/v2/index'
 
 require('./domain/notification/index')()
 var app = express()
 const serverIO = http.createServer(app)
-export const io = socketIO(serverIO, {
+export const io = new Server(serverIO, {
     transports: ['websocket'],
     allowUpgrades: false,
-    upgrade: false,
 })
 
-const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+// const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.use(
     cookieSession({
         name: 'session',
         keys: ['Authentication'],
-        cookie: {
-            secure: true,
-            httpOnly: true,
-            expires: expiryDate,
-        },
+        maxAge: 60 * 60 * 1000,
     })
 )
 
@@ -40,9 +41,6 @@ io.on('connection', (socket) => {
         console.log('disconnected')
     })
 })
-
-let routerV1 = require('./routes/v1/index')
-let routerV2 = require('./routes/v2/index')
 
 app.use(responseTime())
 app.use(
@@ -62,7 +60,7 @@ sequelize.sync()
 
 //v1
 app.group('/api/v1', (router) => {
-    routerV1(router)
+    routerApiv1(router)
 })
 
 //v2

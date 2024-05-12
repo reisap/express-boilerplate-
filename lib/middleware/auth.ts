@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken')
-import * as config from '../../config/config.json'
+import config from '../../config/config.json'
 
 export const generateToken = async (userId) => {
     try {

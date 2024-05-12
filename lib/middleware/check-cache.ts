@@ -1,4 +1,4 @@
-import RedisClient from '../database/redis.js'
+import RedisClient from '../database/redis'
 let client = new RedisClient()
 let clientRedis = client.run().client
 

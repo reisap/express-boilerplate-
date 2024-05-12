@@ -1,8 +1,8 @@
-import * as users from './users'
-import * as post from './post'
+import users from './users'
+import post from './post'
 import {verifyToken} from '../../lib/middleware/auth'
 
-module.exports = (router) => {
+const routerApiv1 = (router) => {
     //you can use global middleware in this routes, like jwt token
     //router.use(middleware)
     //or you can spesify into routes
@@ -12,3 +12,5 @@ module.exports = (router) => {
     router.use('/users', users)
     router.use('/post', verifyToken, post)
 }
+
+export default routerApiv1

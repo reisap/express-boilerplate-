@@ -1,9 +1,9 @@
-const redis = require('@redis/client')
+import {createClient} from '@redis/client'
 
 export default class RedisClient {
     public client: any
     constructor() {
-        this.client = redis.createClient({url: 'redis://redis-db:6379'})
+        this.client = createClient({url: 'redis://redis-db:6379'})
         this.client.connect()
     }
     run() {
