@@ -1,8 +1,23 @@
 # Express JS WITH SUPER POWER
 
-### Tools :
+## Sample email verification
 
-> Node JS (Standart) :D it's only js not typescript
+![Sample email verification](./email-verification.PNG)
+
+---
+---
+---
+
+## Branch Main
+Only used Javascript
+
+## Branch Typescript
+Full used typescript
+
+
+### features :
+
+> Node JS (Standart) :D it's only js not typescript -->>> main branch
 >
 > Routing version (so you can deploy any version of your api)
 >
@@ -17,14 +32,3 @@
 > Docker (for make us happy :P)
 
 ---
-
-## Sample email verification
-
-![Sample email verification](./email-verification.PNG)
-
-TODO :
-
-    1. RabbitMQ / event emitter (DONE)
-    2. Redis (for cache) --> (DONE)
-    3. Sample Deploy with kubernetes
-    4. github action for CI/CD
