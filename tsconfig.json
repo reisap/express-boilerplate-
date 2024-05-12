@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "allowJs": true,
+        "target": "esnext",
+        "resolveJsonModule": true
+        // "esModuleInterop": true
+    },
+    "include": ["./domain/**/*", "./lib/**/*", "./routes/**/*", "./test/**/*", "app.ts"]
+}

@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken')
-import config from '../../config/config.json'
+import * as config from '../../config/config.json'
 
 export const generateToken = async (userId) => {
     try {
@@ -31,9 +31,4 @@ export const verifyToken = async (req, res, next) => {
     } catch (e) {
         res.status(401).json({error: 'Credentials invalid!'})
     }
-}
-
-module.exports = {
-    generateToken,
-    verifyToken,
 }

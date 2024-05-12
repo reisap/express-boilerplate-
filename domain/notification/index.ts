@@ -1,4 +1,4 @@
-import eventEmitter from '../../lib/middleware/event-emitter'
+import {eventEmitter} from '../../lib/middleware/event-emitter'
 import NotificationService from './notification.service'
 
 // let notifService = new NotificationService()

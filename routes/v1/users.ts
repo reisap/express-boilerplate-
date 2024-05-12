@@ -6,9 +6,8 @@ const {UsersController} = require('../../domain/users/users.controller')
 const {UsersService} = require('../../domain/users/users.services')
 
 import {verifyToken} from '../../lib/middleware/auth'
-import ForbiddenException from '../../lib/dto/forbidden.execption.dto'
 
-import eventEmitter from '../../lib/middleware/event-emitter'
+import {eventEmitter} from '../../lib/middleware/event-emitter'
 
 //DI
 let repository = new UsersRepository()

@@ -1,9 +1,10 @@
 import * as bcrypt from 'bcryptjs'
-import sequelize from '../../lib/database/database'
+import {sequelize} from '../../lib/database/database'
 
 import {randomString} from '../../lib/utils/generator'
 
 export class UsersService {
+    private repository: any
     constructor(repository) {
         this.repository = repository
     }

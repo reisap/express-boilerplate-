@@ -1,5 +1,14 @@
+interface IResponse {
+    data?: any
+    message: string
+    code: number
+}
 export default class ResponseErrorDto {
-    constructor({data, message, code}) {
+    private data: any
+    private message: string
+    private code: number
+    private error: boolean
+    constructor({data, message, code}: IResponse) {
         this.data = data || null
         this.message = message || 'oops, somenthings got error'
         this.code = code || 401

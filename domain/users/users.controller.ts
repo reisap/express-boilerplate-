@@ -3,8 +3,10 @@ import ResponseErrorDto from '../../lib/dto/response.error.dto'
 import {generateToken} from '../../lib/middleware/auth'
 import {sendAccountActivation, sendPasswordReset} from '../notification/email/email.service'
 import * as bcrypt from 'bcryptjs'
+import {randomString} from '../../lib/utils/generator'
 
 export class UsersController {
+    private service: any
     constructor(services) {
         this.service = services
     }

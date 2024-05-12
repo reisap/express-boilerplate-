@@ -1,11 +1,12 @@
 export class AbstractRepository {
+    public model: any
     constructor() {
         this.model
     }
     async findAll(size, number) {
-        let paramQuerySQL = {}
-        let limit
-        let offset
+        let paramQuerySQL: any
+        let limit: number
+        let offset: number
 
         if (size !== '' && typeof size !== 'undefined') {
             limit = size

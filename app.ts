@@ -1,17 +1,16 @@
-import express from 'express'
 require('./lib/middleware/group')
-
-import cookieParser from 'cookie-parser'
-import logger from 'morgan'
-import path from 'path'
-import sequelize from './lib/database/database'
-import cors from 'cors'
-import errorHandler from './lib/dto/error.handler.dto'
-import http from 'http'
-import socketIO from 'socket.io'
-const helmet = require('helmet')
-const session = require('cookie-session')
-const responseTime = require('response-time')
+const express = require('express')
+import * as cookieParser from 'cookie-parser'
+import * as logger from 'morgan'
+import * as path from 'path'
+const sequelize = require("'./lib/database/database'")
+import * as cors from 'cors'
+const errorHandler = require('./lib/dto/error.handler.dto')
+import * as http from 'http'
+const socketIO = require('socket.io')
+import helmet from 'helmet'
+const cookieSession = require('cookie-session')
+import * as responseTime from 'response-time'
 
 require('./domain/notification/index')()
 var app = express()
@@ -24,7 +23,7 @@ export const io = socketIO(serverIO, {
 
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.use(
-    session({
+    cookieSession({
         name: 'session',
         keys: ['Authentication'],
         cookie: {

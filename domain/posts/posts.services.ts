@@ -1,6 +1,7 @@
-import sequelize from '../../lib/database/database'
+import {sequelize} from '../../lib/database/database'
 
 export class PostService {
+    private repository: any
     constructor(repository) {
         this.repository = repository
     }
@@ -69,7 +70,7 @@ export class PostService {
             }
         }
     }
-    async updatePost(id, paramsBody = {}) {
+    async updatePost(id: number, paramsBody: any) {
         try {
             //check userId apakah dia yang buat post atau tidak
             let check_post = await this.repository.findOne(id)

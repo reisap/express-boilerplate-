@@ -1,5 +1,14 @@
+interface IResponse {
+    data?: any
+    message: string
+    code: number
+}
+
 export default class ResponseDto {
-    constructor({data, message, code}) {
+    private data: any
+    private message: string
+    private code: number
+    constructor({data, message, code}: IResponse) {
         this.data = data
         this.message = message
         this.code = code

@@ -1,6 +1,7 @@
 const redis = require('@redis/client')
 
 export default class RedisClient {
+    public client: any
     constructor() {
         this.client = redis.createClient({url: 'redis://redis-db:6379'})
         this.client.connect()

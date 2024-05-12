@@ -1,11 +1,12 @@
 import ResponseDto from '../../lib/dto/response.dto'
 
 export class PostController {
+    private service: any
     constructor(service) {
         this.service = service
     }
 
-    async createPost(data) {
+    async createPost(data: any): Promise<any> {
         //ada 2 cara untuk dapatkan userID
         //1. melalui langsung cara nya seperti ini
         //2. melalui payload dari JWT token
@@ -47,7 +48,7 @@ export class PostController {
         let response = new ResponseDto({message: 'success', data: result.result, code: 200}).response()
         return response
     }
-    async updatePost(id, paramsBody = {}) {
+    async updatePost(id: number, paramsBody: any): Promise<any> {
         let result = await this.service.updatePost(id, paramsBody)
         if (result.error) {
             //ada error

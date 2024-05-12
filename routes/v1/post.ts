@@ -1,11 +1,11 @@
 var express = require('express')
 var router = express.Router()
 import {io} from '../../app.js'
-import {validateInsertPost} from '../../domain/posts/dto/create-post.dto'
+import {validateInsertPost} from '../../domain/posts/dto/create-post.dto.js'
 
-import {PostController} from '../../domain/posts/posts.controller'
-import {PostService} from '../../domain/posts/posts.services'
-import {PostRepository} from '../../domain/posts/posts.repository'
+import {PostController} from '../../domain/posts/posts.controller.js'
+import {PostService} from '../../domain/posts/posts.services.js'
+import {PostRepository} from '../../domain/posts/posts.repository.js'
 
 //redis cache
 import RedisClient from '../../lib/database/redis.js'
