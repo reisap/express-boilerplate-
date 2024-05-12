@@ -4,7 +4,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        command: pnpm run start
+        command: pnpm run start-ts
         env_file:
             - '.env'
         ports:

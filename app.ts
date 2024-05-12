@@ -1,16 +1,16 @@
 require('./lib/middleware/group')
 const express = require('express')
-import * as cookieParser from 'cookie-parser'
-import * as logger from 'morgan'
+import cookieParser from 'cookie-parser'
+import logger from 'morgan'
 import * as path from 'path'
 const sequelize = require("'./lib/database/database'")
-import * as cors from 'cors'
+import cors from 'cors'
 const errorHandler = require('./lib/dto/error.handler.dto')
 import * as http from 'http'
 const socketIO = require('socket.io')
 import helmet from 'helmet'
 const cookieSession = require('cookie-session')
-import * as responseTime from 'response-time'
+import responseTime from 'response-time'
 
 require('./domain/notification/index')()
 var app = express()
