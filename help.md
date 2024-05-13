@@ -107,4 +107,12 @@ These two classes have the same interface, and can be used interchangeably, but 
 -   Depend on abstract classes or interfaces
 -   Avoid concrete class name dependencies
 
+### 5. Single Responsibility Principle
+
+-   One responsibility per class
+-   Follow up queastions :
+    -   at what level of abstraction?
+    -   how are the responsibilities counted ?
+-   Sometimes stated as "a class should have only one reason to change"
+
 
