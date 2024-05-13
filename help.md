@@ -96,23 +96,5 @@ class Y:
 
 These two classes have the same interface, and can be used interchangeably, but they don't have a common superclass.
 
-### 3. Open/Closed Principle
-
--   "Open to extension means adding subclasses as needed
--   "Closed to modification" avoid tweaking the code to handle new situations
-
-### 4. Dependecy Inversion Principle
-
--   A direct dependecy on a concrete class needs to be inverted to be indirect
--   Depend on abstract classes or interfaces
--   Avoid concrete class name dependencies
-
-### 5. Single Responsibility Principle
-
--   One responsibility per class
--   Follow up queastions :
-    -   at what level of abstraction?
-    -   how are the responsibilities counted ?
--   Sometimes stated as "a class should have only one reason to change"
 
 
