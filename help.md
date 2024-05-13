@@ -59,3 +59,39 @@ Prevent problems
 -   Sometimes stated as "a class should have only one reason to change"
 
 ---
+
+### 1. Interface segregation principle
+
+-   memecah semua metode menjadi lebih kecil
+-   inheritance vs composition (create new class)
+-   Examine a class from the viewpoint of collaborators
+-   For each collaborator :
+    -   "what methods and attributes does this collaborator require ?"
+
+> How can the Interface Segregation Principle (ISP) improve a design?
+>
+> ISP minimizes the interface upon which other components depend.
+> When interfaces are minimized, it permits changes that won't have a disastrous impact elsewhere in the software.
+
+### 2. Liskov Substitution Principle
+
+    The Liskov Substitution Principle (LSP) assures that a superclass can be replaced by any of its subclasses.
+    Liskov Substitution requires that a subclass be able to replace a superclass. The subclass may add features, but it cannot remove features.
+
+-   Strong behavioral subtyping
+-   Abstract Class
+-   Contoh ketika kita ingin parsing sebuah file json, csv, dan xml. kita membuat sebuah class yang terpisah untuk tiap-tiap reader, sehingga di superclass hanya panggil yang diperlukan. terpisah dari superclass
+-   Be sure every subclass can replace its superclass
+-   **Duck typing principles kebalikannya dari liskov**
+
+```
+class X:
+    def meth(self, a):
+        return 2*a
+
+class Y:
+    def meth(self, a):
+        return a+a
+```
+
+These two classes have the same interface, and can be used interchangeably, but they don't have a common superclass.
