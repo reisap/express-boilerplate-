@@ -95,3 +95,10 @@ class Y:
 ```
 
 These two classes have the same interface, and can be used interchangeably, but they don't have a common superclass.
+
+### 3. Open/Closed Principle
+
+-   "Open to extension means adding subclasses as needed
+-   "Closed to modification" avoid tweaking the code to handle new situations
+
+
