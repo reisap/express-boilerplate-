@@ -101,4 +101,10 @@ These two classes have the same interface, and can be used interchangeably, but 
 -   "Open to extension means adding subclasses as needed
 -   "Closed to modification" avoid tweaking the code to handle new situations
 
+### 4. Dependecy Inversion Principle
+
+-   A direct dependecy on a concrete class needs to be inverted to be indirect
+-   Depend on abstract classes or interfaces
+-   Avoid concrete class name dependencies
+
 
